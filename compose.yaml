@@ -1,0 +1,6 @@
+﻿services:
+  leaderboard:
+    image: leaderboard
+    build:
+      context: .
+      dockerfile: scripts/Leaderboard/Dockerfile
