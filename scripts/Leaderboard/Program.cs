@@ -18,8 +18,11 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-
-        builder.Services.AddDbContext<UserDbContext>(o => { o.UseNpgsql(builder.Configuration.GetConnectionString("NpgConnection")); });
+        
+        builder.Services.AddDbContext<UserDbContext>(o =>
+        {
+            o.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION") ?? builder.Configuration.GetConnectionString("NpgConnection"));
+        });
 
 
         var app = builder.Build();
@@ -30,18 +33,18 @@ internal class Program
             app.UseSwaggerUI();
         }
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseAuthorization();
 
         app.MapControllers();
-        
+
         using (var scope = app.Services.CreateScope())
         {
             var context = scope.ServiceProvider.GetRequiredService<UserDbContext>();
             context.Database.EnsureCreated();
         }
-        
+
         app.Run();
     }
 }

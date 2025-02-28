@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  leaderboard:
+    build:
+      context: "F:\\Projects\\Leaderboard"
+      dockerfile: "scripts/Leaderboard/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/Leaderboard.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "leaderboard:dev"
+    ports: []
+    volumes:
+    - "F:\\Projects\\Leaderboard\\scripts\\Leaderboard:/app:rw"
+    - "F:\\Projects\\Leaderboard:/src:rw"
+    - "C:\\Users\\citry\\.nuget\\packages:/home/app/.nuget/packages"
+    working_dir: "/app"
