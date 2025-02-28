@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Leaderboard.Controllers;
+namespace Leaderboard;
 
-public class UserController : Controller
+[ApiController]
+[Route("api/[controller]")]
+public sealed class UserController : ControllerBase
 {
-    // GET
-    public IActionResult Index()
+    private readonly UserDbContext _context;
+
+    public UserController(UserDbContext context)
     {
-        return View();
+        _context = context;
     }
+    
 }

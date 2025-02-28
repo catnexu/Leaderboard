@@ -24,8 +24,4 @@
       <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.3.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Models\" />
-    </ItemGroup>
-
 </Project>
