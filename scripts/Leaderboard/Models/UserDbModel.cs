@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Leaderboard;
 
-public sealed class UserDbModel : IDbModel<UserDataModel>
+public sealed class UserDbModel : IDbModel<UserModel>
 {
     [Key, Column("id")]
     public string Id { get; set; }
@@ -11,9 +11,9 @@ public sealed class UserDbModel : IDbModel<UserDataModel>
     [Column("name")]
     public string Name { get; set; }
 
-    public UserDataModel Map()
+    public UserModel Map()
     {
-        return new UserDataModel
+        return new UserModel
         {
             Id = Id,
             Name = Name,

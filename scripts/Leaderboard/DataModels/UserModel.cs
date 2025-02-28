@@ -1,6 +1,6 @@
 ﻿namespace Leaderboard;
 
-public class UserDataModel : IDataModel<UserDbModel>
+public class UserModel : IDataModel<UserDbModel>
 {
     public string Id { get; set; }
     public string Name { get; set; }

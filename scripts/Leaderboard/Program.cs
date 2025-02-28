@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace Leaderboard;
 
@@ -9,7 +10,8 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        builder.WebHost.ConfigureKestrel(o => {
+        builder.WebHost.ConfigureKestrel(o =>
+        {
             o.Limits.MinRequestBodyDataRate = new MinDataRate(bytesPerSecond: 1024, gracePeriod: TimeSpan.FromSeconds(10));
         });
 
@@ -17,13 +19,14 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddDbContext<UserDbContext>(o => o.UseNpgsql(builder.Configuration.GetConnectionString("NpgConnection")));
+        builder.Services.AddDbContext<UserDbContext>(o => { o.UseNpgsql(builder.Configuration.GetConnectionString("NpgConnection")); });
 
 
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {
+            //app.UseRouting();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
@@ -33,7 +36,7 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
-
+        
         app.Run();
     }
 }
