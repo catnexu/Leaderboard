@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Leaderboard;
 
-[DbContext(typeof(UserDbModel))]
+[DbContext(typeof(User))]
 public sealed class UserDbContext : DbContext
 {
-    public DbSet<UserDbModel> Users { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public UserDbContext(DbContextOptions<UserDbContext> options) :base(options)
     {

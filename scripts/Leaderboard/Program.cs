@@ -26,7 +26,6 @@ internal class Program
 
         if (app.Environment.IsDevelopment())
         {
-            //app.UseRouting();
             app.UseSwagger();
             app.UseSwaggerUI();
         }
@@ -36,6 +35,12 @@ internal class Program
         app.UseAuthorization();
 
         app.MapControllers();
+        
+        using (var scope = app.Services.CreateScope())
+        {
+            var context = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+            context.Database.EnsureCreated();
+        }
         
         app.Run();
     }

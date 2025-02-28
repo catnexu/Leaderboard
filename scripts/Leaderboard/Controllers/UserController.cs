@@ -31,9 +31,22 @@ public sealed class UserController : ControllerBase
     [HttpPost("createUser")]
     public async Task<IActionResult> CreateUser([FromBody] UserModel model)
     {
-        _context.Users.Add(model.Map());
-        await _context.SaveChangesAsync();
-        return Ok(model);
+        if (string.IsNullOrEmpty(model.Id))
+        {
+            return BadRequest("Incorrect user");
+        }
+
+        try
+        {
+            var user = model.Map();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Ошибка при сохранении: {ex.Message}");
+        }
     }
 
     [HttpPost("editUser")]

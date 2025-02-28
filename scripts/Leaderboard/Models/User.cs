@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Leaderboard;
 
-public sealed class UserDbModel : IDbModel<UserModel>
+public sealed class User : IDbModel<UserModel>
 {
     [Key, Column("id")]
     public string Id { get; set; }
