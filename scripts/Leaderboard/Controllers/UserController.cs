@@ -8,14 +8,15 @@ namespace Leaderboard;
 public sealed class UserController : ControllerBase
 {
     private readonly UserDbContext _context;
+    private readonly Logger _logger;
 
-    public UserController(UserDbContext context)
+    public UserController(UserDbContext context,  Logger logger)
     {
         _context = context;
+        _logger = logger;
     }
     
-    [HttpGet]
-    [Route("test")]
+    [HttpGet("test")]
     public async Task<ActionResult<string>> Test()
     {
         return new ActionResult<string>("Hello");
@@ -45,7 +46,7 @@ public sealed class UserController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, $"Ошибка при сохранении: {ex.Message}");
+            return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
         }
     }
 
@@ -57,7 +58,7 @@ public sealed class UserController : ControllerBase
     }
 
 
-    [HttpPost("deleteUser")]
+    [HttpDelete("deleteUser")]
     public async Task<IActionResult> DeleteUser(string userId)
     {
         await _context.Users.Where(x => x.Id == userId).ExecuteDeleteAsync();

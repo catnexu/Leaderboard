@@ -19,13 +19,15 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         
+        builder.Services.AddSingleton<Logger>();
+        
         builder.Services.AddDbContext<UserDbContext>(o =>
         {
             o.UseNpgsql(Environment.GetEnvironmentVariable("DB_CONNECTION") ?? builder.Configuration.GetConnectionString("NpgConnection"));
         });
 
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
 
         if (app.Environment.IsDevelopment())
         {
