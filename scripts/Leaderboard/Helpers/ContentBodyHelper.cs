@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Leaderboard.Helpers;
+namespace Leaderboard;
 
-public static class ContentBodyHelper
+internal static class ContentBodyHelper
 {
     public static async Task<T?> Read<T>(HttpRequest request)
     {

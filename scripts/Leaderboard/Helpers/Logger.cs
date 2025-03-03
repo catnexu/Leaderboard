@@ -1,6 +1,6 @@
 namespace Leaderboard;
 
-public sealed class Logger
+internal static class Logger
 {
     public static void Log(string message)
     {

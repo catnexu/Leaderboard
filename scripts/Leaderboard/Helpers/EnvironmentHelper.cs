@@ -1,6 +1,6 @@
 namespace Leaderboard;
 
-public static class EnvironmentHelper
+internal static class EnvironmentHelper
 {
     public static bool DevEnvironment { get; private set; }
     

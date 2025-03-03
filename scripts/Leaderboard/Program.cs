@@ -19,7 +19,7 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         
-        builder.Services.AddSingleton<Logger>();
+        builder.Services.AddSingleton<SessionManager>();
         
         builder.Services.AddDbContext<UserDbContext>(o =>
         {

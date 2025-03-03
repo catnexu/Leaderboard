@@ -1,26 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Leaderboard;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class UserController : ControllerBase
+internal sealed class UserController : LeaderboardControllerBase
 {
     private readonly UserDbContext _context;
-    private readonly Logger _logger;
+    private readonly SessionManager _sessionManager;
 
-    public UserController(UserDbContext context,  Logger logger)
+    public UserController(UserDbContext context, SessionManager sessionManager)
     {
         _context = context;
-        _logger = logger;
+        _sessionManager = sessionManager;
     }
     
-    [HttpGet("test")]
-    public async Task<ActionResult<string>> Test()
-    {
-        return new ActionResult<string>("Hello");
-    }
 
     [HttpGet("getUsers")]
     public async Task<IActionResult> GetUsers()
