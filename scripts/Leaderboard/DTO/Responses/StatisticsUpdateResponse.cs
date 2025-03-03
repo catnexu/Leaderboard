@@ -2,7 +2,7 @@
 
 namespace Leaderboard;
 
-internal sealed class StatisticsUpdateResponse
+public sealed class StatisticsUpdateResponse
 {
     [JsonProperty("userId")]
     public string UserId { get; set; }

@@ -4,7 +4,7 @@ namespace Leaderboard;
 
 [ApiController]
 [Route("api/[controller]")]
-internal sealed class SessionController(SessionManager manager) : LeaderboardControllerBase
+public sealed class SessionController(SessionManager manager) : LeaderboardControllerBase
 {
     [HttpPost]
     [Route("start")]

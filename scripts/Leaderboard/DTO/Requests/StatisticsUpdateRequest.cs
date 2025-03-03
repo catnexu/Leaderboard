@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Leaderboard;
 
-internal sealed class StatisticsUpdateRequest
+public sealed class StatisticsUpdateRequest
 {
     [JsonProperty("userId")]
     public string UserId { get; set; }

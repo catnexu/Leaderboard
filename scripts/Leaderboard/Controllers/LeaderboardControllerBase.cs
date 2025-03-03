@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Leaderboard;
 
-internal abstract class LeaderboardControllerBase : ControllerBase
+public abstract class LeaderboardControllerBase : ControllerBase
 {
     protected ActionResult ReturnSensitiveError(int statusCode, Exception ex)
     {

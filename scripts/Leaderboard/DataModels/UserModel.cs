@@ -1,14 +1,14 @@
 ﻿namespace Leaderboard;
 
-public class UserModel : IDataModel<User>
+public sealed class UserModel : IDataModel<UserDbModel>
 {
     public string Id { get; set; }
     public string Name { get; set; }
     
     
-    public User Map()
+    public UserDbModel Map()
     {
-        return new User
+        return new UserDbModel
         {
             Id = Id, 
             Name = Name,

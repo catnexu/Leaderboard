@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace Leaderboard;
 
 [ApiController]
 [Route("api/[controller]")]
-internal sealed class UserController : LeaderboardControllerBase
+public sealed class UserController : LeaderboardControllerBase
 {
     private readonly UserDbContext _context;
     private readonly SessionManager _sessionManager;
@@ -16,7 +15,7 @@ internal sealed class UserController : LeaderboardControllerBase
         _context = context;
         _sessionManager = sessionManager;
     }
-    
+
 
     [HttpGet("getUsers")]
     public async Task<IActionResult> GetUsers()
@@ -25,7 +24,28 @@ internal sealed class UserController : LeaderboardControllerBase
         return Ok(result);
     }
 
-    [HttpPost("createUser")]
+    [HttpPost("update")]
+    public async Task<ActionResult> UpdateUserInfo()
+    {
+        try
+        {
+            UserUpdateRequest? dtoModel = await ContentBodyHelper.Read<UserUpdateRequest>(Request);
+            if (string.IsNullOrEmpty(dtoModel?.UserId))
+            {
+                return ReturnSensitiveError(StatusCodes.Status400BadRequest, $"Error: id cannot be null or empty");
+            }
+
+            UserModel? entity = await _context.UpdateUserInfo(dtoModel.UserId, dtoModel.Nickname);
+            return StatusCode(StatusCodes.Status200OK);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex);
+            return ReturnSensitiveError(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
+        }
+    }
+
+    /*[HttpPost("createUser")]
     public async Task<IActionResult> CreateUser([FromBody] UserModel model)
     {
         if (string.IsNullOrEmpty(model.Id))
@@ -59,5 +79,5 @@ internal sealed class UserController : LeaderboardControllerBase
     {
         await _context.Users.Where(x => x.Id == userId).ExecuteDeleteAsync();
         return Ok(true);
-    }
+    }*/
 }
